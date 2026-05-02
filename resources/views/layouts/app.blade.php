@@ -6,6 +6,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield('title', 'Nawaf Milfi M')</title>
+    <link rel="icon" type="image/png" href="{{ asset('a80841e3-34ae-47fa-9790-96787ca175c4.png') }}?v=2">
 
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
