@@ -86,6 +86,43 @@ document.addEventListener('DOMContentLoaded', () => {
         sections.forEach((section) => sectionObserver.observe(section));
     }
 
+    const projectTrack = document.querySelector('[data-project-track]');
+    const projectPrev = document.querySelector('[data-project-prev]');
+    const projectNext = document.querySelector('[data-project-next]');
+
+    if (projectTrack && projectPrev && projectNext) {
+        const getProjectStep = () => {
+            const firstSlide = projectTrack.querySelector('.project-slide');
+            const styles = window.getComputedStyle(projectTrack);
+            const gap = Number.parseFloat(styles.columnGap || styles.gap) || 24;
+
+            return firstSlide ? firstSlide.getBoundingClientRect().width + gap : projectTrack.clientWidth;
+        };
+
+        const updateProjectControls = () => {
+            const maxScroll = projectTrack.scrollWidth - projectTrack.clientWidth;
+            const hasOverflow = maxScroll > 2;
+
+            projectPrev.disabled = !hasOverflow || projectTrack.scrollLeft <= 2;
+            projectNext.disabled = !hasOverflow || projectTrack.scrollLeft >= maxScroll - 2;
+        };
+
+        const scrollProjects = (direction) => {
+            projectTrack.scrollBy({
+                left: getProjectStep() * direction,
+                behavior: reduceMotion ? 'auto' : 'smooth',
+            });
+        };
+
+        projectPrev.addEventListener('click', () => scrollProjects(-1));
+        projectNext.addEventListener('click', () => scrollProjects(1));
+        projectTrack.addEventListener('scroll', updateProjectControls, { passive: true });
+        window.addEventListener('resize', updateProjectControls);
+
+        updateProjectControls();
+        requestAnimationFrame(updateProjectControls);
+    }
+
     const tiltCard = document.querySelector('[data-tilt-card]');
 
     if (!tiltCard || reduceMotion) return;

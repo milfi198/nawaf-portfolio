@@ -30,9 +30,7 @@
                 </h1>
 
                 <p class="text-[17px] md:text-[18px] leading-relaxed text-on-surface-variant max-w-xl" data-animate style="--delay: 240ms;">
-                    I am an informatics student who is developing skills in web development,
-                    mobile app development, UI design, and photography. I enjoy building useful
-                    digital products and documenting moments through visual stories.
+                    With a background in informatics, I focus on developing skills in web development, mobile app development, and UI design. I enjoy building useful digital products and documenting moments through visual stories.
                 </p>
             </div>
 
@@ -60,7 +58,7 @@
         <div class="profile-stage relative w-full max-w-[420px] mx-auto" data-animate="fade-left" style="--delay: 260ms;">
             <div class="profile-frame relative aspect-[4/5] rounded-xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.10)] group bg-surface-container" data-tilt-card>
                 <img
-                    src="{{ asset('images/nawaf.jpg') }}"
+                    src="{{ asset('images\nawaf.jpg') }}"
                     alt="Nawaf Profile Photo"
                     class="w-full h-full object-cover scale-[1.02] transition-transform duration-500 group-hover:scale-[1.07]"
                 >
@@ -93,7 +91,7 @@
                     <div class="w-12 h-1 bg-primary mb-stack-md rounded-full"></div>
 
                     <p class="font-body-md text-body-md text-on-surface-variant mb-4">
-                        I am  currently improving my skills in web development, mobile app development, UI design, photography, and content creation.
+                        I am  currently improving my skills in web development, mobile app development, UI design, and content creation.
                     </p>
 
                     <p class="font-body-md text-body-md text-on-surface-variant">
@@ -130,9 +128,9 @@
         </div>
     </section>
 
-    <section id="projects" class="py-section-padding">
+    <section id="projects" class="pt-10 md:pt-12 pb-section-padding scroll-mt-[90px]">
         <div class="max-w-[1280px] mx-auto px-8 md:px-12">
-            <div class="flex justify-between items-end mb-16 flex-wrap gap-6" data-animate>
+            <div class="flex justify-between items-end mb-10 flex-wrap gap-6" data-animate>
                 <div>
                     <p class="font-label-sm text-label-sm text-primary mb-3 uppercase tracking-widest">
                         My Work
@@ -147,8 +145,19 @@
                 </a>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
-                <article class="animated-card bg-surface rounded-xl overflow-hidden border border-surface-variant shadow-sm hover:shadow-lg transition-all duration-300" data-animate style="--delay: 80ms;">
+            <div class="project-carousel-shell">
+                <div class="project-carousel-controls" aria-label="Project carousel controls">
+                    <button type="button" class="project-carousel-button" data-project-prev aria-label="Previous project">
+                        <span class="material-symbols-outlined text-[28px]">chevron_left</span>
+                    </button>
+
+                    <button type="button" class="project-carousel-button" data-project-next aria-label="Next project">
+                        <span class="material-symbols-outlined text-[28px]">chevron_right</span>
+                    </button>
+                </div>
+
+                <div class="projects-carousel" data-project-track aria-label="Selected projects" tabindex="0">
+                <article class="project-slide animated-card bg-surface rounded-xl overflow-hidden border border-surface-variant shadow-sm hover:shadow-lg transition-all duration-300" data-animate style="--delay: 80ms;">
                     <div class="h-48 bg-surface-container-high flex items-center justify-center">
                         <span class="project-icon material-symbols-outlined text-primary text-[54px]">eco</span>
                     </div>
@@ -167,7 +176,7 @@
 
                 <a
                     href="#"
-                    class="animated-card block bg-surface rounded-xl overflow-hidden border border-surface-variant shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer"
+                    class="project-slide animated-card block bg-surface rounded-xl overflow-hidden border border-surface-variant shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer"
                     data-animate
                     style="--delay: 180ms;"
                 >
@@ -189,7 +198,7 @@
 
                 <a
                     href="#"
-                    class="animated-card block bg-surface rounded-xl overflow-hidden border border-surface-variant shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer"
+                    class="project-slide animated-card block bg-surface rounded-xl overflow-hidden border border-surface-variant shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer"
                     data-animate
                     style="--delay: 280ms;"
                 >
@@ -212,6 +221,33 @@
                         </div>
                     </div>
                 </a>
+
+                <a
+                    href="#"
+                    class="project-slide animated-card block bg-surface rounded-xl overflow-hidden border border-surface-variant shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-300 cursor-pointer"
+                    data-animate
+                    style="--delay: 380ms;"
+                >
+                    <div class="h-48 bg-surface-container-high flex items-center justify-center">
+                        <span class="project-icon material-symbols-outlined text-primary text-[54px]">local_cafe</span>
+                    </div>
+
+                    <div class="p-6">
+                        <h3 class="font-headline-md text-headline-md mb-3">Coffee Shop Web App</h3>
+
+                        <p class="text-on-surface-variant mb-4">
+                            A coffee shop website with product showcase and gallery.
+                            <span class="text-primary font-semibold">(Coming Soon: cashier admin CRUD feature)</span>
+                        </p>
+
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 bg-surface-container rounded-full text-sm">HTML</span>
+                            <span class="px-3 py-1 bg-surface-container rounded-full text-sm">CSS</span>
+                            <span class="px-3 py-1 bg-surface-container rounded-full text-sm">JS</span>
+                        </div>
+                    </div>
+                </a>
+                </div>
             </div>
         </div>
     </section>

@@ -14,6 +14,29 @@
 
 @include('partials.navbar', ['navType' => 'show'])
 
+<style>
+    .detail-photo-toggle {
+        transition:
+            background-color 200ms ease,
+            transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .detail-photo-toggle:hover {
+        transform: translateY(-2px);
+    }
+
+    .detail-photo-toggle.is-expanded {
+        transform: rotate(180deg);
+    }
+
+    .detail-photo-toggle.is-expanded:hover {
+        transform: rotate(180deg) translateY(2px);
+    }
+
+    #expandIcon {
+        transition: transform 260ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+</style>
 
 <main class="photo-page pt-[72px]">
     @if (session('success'))
@@ -39,9 +62,9 @@
     @endif
 
     <section class="pt-4 md:pt-6 pb-12">
-        <div class="max-w-[1100px] mx-auto px-8 md:px-12">
+        <div class="max-w-[720px] mx-auto px-5 md:px-0">
             <div class="photo-detail-shell bg-surface rounded-xl border border-surface-variant shadow-sm overflow-hidden" data-photo-reveal>
-                <div id="photoWrapper" class="detail-photo-frame relative h-[260px] md:h-[420px] bg-surface-container-high overflow-hidden transition-all duration-500 ease-in-out">
+                <div id="photoWrapper" class="detail-photo-frame relative h-[200px] md:h-[280px] bg-surface-container-high overflow-hidden transition-[height,box-shadow] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
                     <img
                         id="detailPhoto"
                         src="{{ asset('storage/' . $photo->image) }}"
@@ -50,10 +73,12 @@
                     >
 
                     <button
+                        id="expandPhotoButton"
                         type="button"
                         onclick="togglePhotoExpand()"
-                        class="absolute bottom-4 right-4 w-11 h-11 rounded-full bg-black/60 text-white flex items-center justify-center backdrop-blur-sm hover:bg-primary transition-all duration-200"
+                        class="detail-photo-toggle absolute bottom-4 right-4 w-11 h-11 rounded-full bg-black/60 text-white flex items-center justify-center backdrop-blur-sm hover:bg-primary"
                         title="Show full photo"
+                        aria-expanded="false"
                     >
                         <span id="expandIcon" class="material-symbols-outlined">
                             keyboard_arrow_down
@@ -595,26 +620,53 @@
     function togglePhotoExpand() {
         const wrapper = document.getElementById('photoWrapper');
         const photo = document.getElementById('detailPhoto');
-        const icon = document.getElementById('expandIcon');
+        const button = document.getElementById('expandPhotoButton');
+
+        if (!wrapper || !photo || !button) return;
+
+        const setCollapsedHeight = () => {
+            wrapper.style.height = window.innerWidth >= 768 ? '280px' : '200px';
+        };
 
         if (!isPhotoExpanded) {
-            wrapper.classList.remove('h-[260px]', 'md:h-[420px]');
-            wrapper.classList.add('h-auto');
+            wrapper.style.height = `${wrapper.offsetHeight}px`;
 
             photo.classList.remove('h-full', 'object-cover');
-            photo.classList.add('h-auto', 'object-contain');
+            photo.classList.add('h-auto', 'object-contain', 'mx-auto');
 
-            icon.textContent = 'keyboard_arrow_up';
+            requestAnimationFrame(() => {
+                wrapper.style.height = `${photo.scrollHeight}px`;
+            });
+
+            wrapper.addEventListener('transitionend', function handleOpen(event) {
+                if (event.propertyName !== 'height') return;
+
+                wrapper.style.height = 'auto';
+                wrapper.removeEventListener('transitionend', handleOpen);
+            });
+
+            button.classList.add('is-expanded');
+            button.setAttribute('aria-expanded', 'true');
+            button.setAttribute('title', 'Hide full photo');
             isPhotoExpanded = true;
         } else {
-            wrapper.classList.remove('h-auto');
+            wrapper.style.height = `${wrapper.scrollHeight}px`;
 
-            wrapper.classList.add('h-[260px]', 'md:h-[420px]');
+            requestAnimationFrame(setCollapsedHeight);
 
-            photo.classList.remove('h-auto', 'object-contain');
+            photo.classList.remove('h-auto', 'object-contain', 'mx-auto');
             photo.classList.add('h-full', 'object-cover');
 
-            icon.textContent = 'keyboard_arrow_down';
+            wrapper.addEventListener('transitionend', function handleClose(event) {
+                if (event.propertyName !== 'height') return;
+
+                wrapper.style.height = '';
+                wrapper.removeEventListener('transitionend', handleClose);
+            });
+
+            button.classList.remove('is-expanded');
+            button.setAttribute('aria-expanded', 'false');
+            button.setAttribute('title', 'Show full photo');
             isPhotoExpanded = false;
         }
     }

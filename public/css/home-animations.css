@@ -181,6 +181,87 @@ html {
     color: #9e3d00;
 }
 
+.project-carousel-controls {
+    position: absolute;
+    left: -28px;
+    right: -28px;
+    top: 50%;
+    z-index: 8;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    pointer-events: none;
+    transform: translateY(-50%);
+}
+
+.project-carousel-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 62px;
+    height: 62px;
+    border: 1px solid rgba(0, 88, 188, 0.18);
+    border-radius: 999px;
+    color: #0058bc;
+    background: rgba(255, 255, 255, 0.92);
+    box-shadow: 0 18px 44px rgba(26, 27, 31, 0.16);
+    backdrop-filter: blur(16px);
+    pointer-events: auto;
+    transition:
+        transform 200ms ease,
+        border-color 200ms ease,
+        background-color 200ms ease,
+        color 200ms ease,
+        opacity 200ms ease;
+}
+
+.project-carousel-button:hover:not(:disabled) {
+    transform: translateY(-2px) scale(1.04);
+    border-color: rgba(0, 88, 188, 0.42);
+    color: #ffffff;
+    background: #0058bc;
+}
+
+.project-carousel-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.42;
+    transform: scale(0.94);
+}
+
+.project-carousel-shell {
+    position: relative;
+    margin: -4px;
+    padding: 4px;
+}
+
+.projects-carousel {
+    --project-gap: 24px;
+    display: flex;
+    align-items: stretch;
+    gap: var(--project-gap);
+    margin: 0;
+    padding: 0 0 30px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+}
+
+.projects-carousel::-webkit-scrollbar {
+    display: none;
+}
+
+.project-slide {
+    flex: 0 0 calc((100% - (var(--project-gap) * 2)) / 3);
+    min-width: 0;
+    scroll-snap-align: start;
+}
+
+.project-slide.animated-card {
+    display: flex;
+    flex-direction: column;
+}
+
 .stat-card {
     position: relative;
     overflow: hidden;
@@ -280,10 +361,29 @@ html {
         bottom: 46px;
     }
 
-    .chip-camera {
-        left: 50%;
-        bottom: -14px;
-        --chip-x: -50%;
+        .chip-camera {
+            left: 50%;
+            bottom: -14px;
+            --chip-x: -50%;
+        }
+
+    .projects-carousel {
+        --project-gap: 18px;
+        padding-bottom: 22px;
+    }
+
+    .project-slide {
+        flex-basis: min(86vw, 360px);
+    }
+
+    .project-carousel-controls {
+        left: 6px;
+        right: 6px;
+    }
+
+    .project-carousel-button {
+        width: 48px;
+        height: 48px;
     }
 }
 
@@ -297,7 +397,7 @@ html {
     .profile-frame::after,
     .motion-chip,
     .kinetic-link::after,
-    .stat-card::after {
+        .stat-card::after {
         animation: none;
     }
 
@@ -310,5 +410,9 @@ html {
         transform: none;
         filter: none;
         opacity: 1;
+    }
+
+    .projects-carousel {
+        scroll-behavior: auto;
     }
 }

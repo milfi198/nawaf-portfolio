@@ -44,7 +44,7 @@
         {{-- Right Side: Contact Button (home) or Auth Section (photography/show) --}}
         @if ($navType === 'home')
             <a href="#contact" class="hidden md:block bg-primary text-on-primary px-6 py-2 rounded-full font-label-sm text-label-sm hover:scale-105 transition-all duration-200 shadow-[0_4px_20px_rgba(0,0,0,0.05)]">
-                Contact Me
+                Hit Me Up!
             </a>
         @else
             @auth
@@ -128,7 +128,7 @@
             <a href="#projects" onclick="toggleMobileMenu()" class="px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-low hover:text-primary transition-all">Project</a>
             <a href="#contact" onclick="toggleMobileMenu()" class="px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-low hover:text-primary transition-all">Contact</a>
             <a href="{{ url('/my-photography') }}" class="px-4 py-3 rounded-xl text-primary font-semibold hover:bg-surface-container-low transition-all">My Photography</a>
-            
+
             <div class="pt-4 mt-2 border-t border-surface-variant">
                 <a href="#contact" onclick="toggleMobileMenu()" class="block w-full bg-primary text-on-primary px-5 py-3 rounded-xl font-semibold text-center hover:scale-[1.02] transition-all shadow-[0_4px_20px_rgba(0,0,0,0.05)]">
                     Contact Me
