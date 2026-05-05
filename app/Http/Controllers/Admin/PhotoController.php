@@ -31,6 +31,14 @@ class PhotoController extends Controller
 
         $imagePath = $request->file('image')->store('photos', 'public');
 
+        $hostingPublicPath = base_path('../public_html/storage/' . $imagePath);
+
+        if (!file_exists(dirname($hostingPublicPath))) {
+            mkdir(dirname($hostingPublicPath), 0755, true);
+        }
+
+        copy(storage_path('app/public/' . $imagePath), $hostingPublicPath);
+
         Photo::create([
             'title' => $request->title,
             'description' => $request->description,
