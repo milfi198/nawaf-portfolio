@@ -31,7 +31,7 @@ class PhotoController extends Controller
 
         $imagePath = $request->file('image')->store('photos', 'public');
 
-        $hostingPublicPath = base_path('../public_html/storage/' . $imagePath);
+        $hostingPublicPath = base_path('../../public_html/storage/' . $imagePath);
 
         if (!file_exists(dirname($hostingPublicPath))) {
             mkdir(dirname($hostingPublicPath), 0755, true);
